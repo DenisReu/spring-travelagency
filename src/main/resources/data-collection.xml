@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       profile="collection">
+
+
+    <!--todo -->
+
+    <bean id="user" class="com.byhovsky.agency.entity.User">
+        <property name="userId" value="1"/>
+        <property name="login" value="LOGIN"/>
+        <property name="password" value="9379992"/>
+        <property name="orders" ref="orderList"/>
+    </bean>
+
+    <bean id="country1" class="com.byhovsky.agency.entity.Country">
+        <property name="id" value="1"/>
+        <property name="name" value="SPAIN"/>
+    </bean>
+
+    <bean id="country2" class="com.byhovsky.agency.entity.Country">
+        <property name="id" value="2"/>
+        <property name="name" value="RUSSIA"/>
+    </bean>
+
+
+    <bean id="country3" class="com.byhovsky.agency.entity.Country">
+        <property name="id" value="3"/>
+        <property name="name" value="ITALY"/>
+    </bean>
+
+    <bean id="tour" class="com.byhovsky.agency.entity.Tour">
+        <property name="tourId" value="1"/>
+        <property name="hotel" value="#{hotelList.get(1)}"/>
+        <property name="country" value="#{countryList.get(1)}"/>
+        <property name="date" value="#{T(java.time.LocalDate).of(2018, 11, 22)}"/>
+        <property name="type" value="BICUCLE"/>
+        <property name="description" value="for two person"/>
+        <property name="cost" value="11"/>
+        <property name="duration" value="9"/>
+        <property name="photo" value="//d"/>
+    </bean>
+
+    <bean id="tour1" class="com.byhovsky.agency.entity.Tour">
+        <property name="tourId" value="2"/>
+        <property name="hotel" value="#{hotelList.get(2)}"/>
+        <property name="country" value="#{countryList.get(2)}"/>
+        <property name="date" value="#{T(java.time.LocalDate).of(2018, 11, 22)}"/>
+        <property name="type" value="BICUCLE"/>
+        <property name="description" value="for two person"/>
+        <property name="cost" value="11"/>
+        <property name="duration" value="9"/>
+        <property name="photo" value="//d"/>
+    </bean>
+
+    <util:list id="countryList" list-class="java.util.ArrayList"
+               value-type="com.byhovsky.agency.entity.Country">
+        <ref bean="country1"/>
+        <ref bean="country2"/>
+        <ref bean="country3"/>
+    </util:list>
+
+
+    <bean id="order1" class="com.byhovsky.agency.entity.Order">
+        <property name="userId" value="1"/>
+        <property name="tour" ref="tour"/>
+        <property name="quantity" value="2"/>
+    </bean>
+
+
+    <bean id="hotel1" class="com.byhovsky.agency.entity.Hotel">
+        <property name="hotelId" value="1"/>
+        <property name="phone" value="+32432432"/>
+        <property name="hotelName" value="Europe"/>
+        <property name="stars" value="4"/>
+        <property name="country" value="#{countryList.get(1)}"/>
+    </bean>
+
+
+    <bean id="hotel2" class="com.byhovsky.agency.entity.Hotel">
+        <property name="hotelId" value="1"/>
+        <property name="phone" value="+32432432"/>
+        <property name="hotelName" value="Europe"/>
+        <property name="stars" value="4"/>
+        <property name="country" value="#{countryList.get(1)}"/>
+    </bean>
+
+
+    <util:list id="hotelList" list-class="java.util.concurrent.CopyOnWriteArrayList" value-type="com.byhovsky.agency.entity.Hotel
+">
+        <ref bean="hotel1"/>
+        <ref bean="hotel2"/>
+    </util:list>
+
+    <util:list id="reviewList" list-class="java.util.concurrent.CopyOnWriteArrayList" value-type="com.byhovsky.agency.entity.Review
+">
+        <ref bean="review"/>
+        <ref bean="review1"/>
+    </util:list>
+
+
+    <bean id="review" class="com.byhovsky.agency.entity.Review">
+        <property name="tour" ref="tour"/>
+        <property name="userId" value="1"/>
+        <property name="content" value="so-so"/>
+        <property name="reviewId" value="1"/>
+    </bean>
+
+    <bean id="review1" class="com.byhovsky.agency.entity.Review">
+        <property name="tour" ref="tour"/>
+        <property name="userId" value="2"/>
+        <property name="content" value="not bad"/>
+        <property name="reviewId" value="2"/>
+    </bean>
+
+
+    <util:list id="tourList" list-class="java.util.concurrent.CopyOnWriteArrayList" value-type="com.byhovsky.agency.entity.Tour
+">
+        <ref bean="tour"/>
+        <ref bean="tour1"/>
+    </util:list>
+
+    <util:list id="userList" list-class="java.util.concurrent.CopyOnWriteArrayList" value-type="com.byhovsky.agency.entity.User
+">
+        <ref bean="user"/>
+    </util:list>
+
+
+    <util:list id="orderList" list-class="java.util.concurrent.CopyOnWriteArrayList" value-type="com.byhovsky.agency.entity.Order
+">
+    </util:list>
+
+    <bean id="countryRepository" class="com.byhovsky.agency.repository.impl.CountryRepositoryImpl">
+        <constructor-arg ref="countryList"/>
+    </bean>
+
+    <bean id="reviewRepository" class="com.byhovsky.agency.repository.impl.ReviewRepositoryImpl">
+        <constructor-arg ref="reviewList"/>
+    </bean>
+
+    <bean id="tourRepository" class="com.byhovsky.agency.repository.impl.TourRepositoryImpl">
+        <constructor-arg ref="tourList"/>
+    </bean>
+
+    <bean id="userRepository" class="com.byhovsky.agency.repository.impl.UserRepositoryImpl">
+        <constructor-arg ref="userList"/>
+    </bean>
+
+    <bean id="hotelRepository" class="com.byhovsky.agency.repository.impl.HotelRepositoryImpl">
+        <constructor-arg ref="hotelList"/>
+
+    </bean>
+</beans>

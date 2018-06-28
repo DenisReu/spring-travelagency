@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="spring-template.xml"/>
+
+    <beans profile="collection">
+        <bean id="countryService" class="com.byhovsky.agency.service.impl.CountryServiceImpl">
+            <constructor-arg ref="countryRepository"/>
+        </bean>
+
+        <bean id="hotelService" class="com.byhovsky.agency.service.impl.HotelServiceImpl">
+            <constructor-arg ref="hotelRepository"/>
+        </bean>
+
+        <bean id="reviewService" class="com.byhovsky.agency.service.impl.ReviewServiceImpl">
+            <constructor-arg ref="reviewRepository"/>
+        </bean>
+
+        <bean id="tourService" class="com.byhovsky.agency.service.impl.TourServiceImpl">
+            <constructor-arg ref="tourRepository"/>
+        </bean>
+
+        <bean id="userService" class="com.byhovsky.agency.service.impl.UserServiceImpl">
+            <constructor-arg ref="userRepository"/>
+        </bean>
+    </beans>
+
+    <beans profile="postgres">
+        <bean id="countryService" class="com.byhovsky.agency.service.impl.CountryServiceImpl">
+            <constructor-arg ref="countryRepository"/>
+        </bean>
+
+        <bean id="hotelService" class="com.byhovsky.agency.service.impl.HotelServiceImpl">
+            <constructor-arg ref="hotelRepository"/>
+        </bean>
+
+        <bean id="reviewService" class="com.byhovsky.agency.service.impl.ReviewServiceImpl">
+            <constructor-arg ref="reviewRepository"/>
+        </bean>
+
+        <bean id="tourService" class="com.byhovsky.agency.service.impl.TourServiceImpl">
+            <constructor-arg ref="tourRepository"/>
+        </bean>
+
+        <bean id="userService" class="com.byhovsky.agency.service.impl.UserServiceImpl">
+            <constructor-arg ref="userRepository"/>
+        </bean>
+    </beans>
+
+</beans>
